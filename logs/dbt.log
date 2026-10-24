@@ -1,0 +1,77 @@
+[0m16:30:49.484738 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AF68F30210>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AF68E64650>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AF68F78CD0>]}
+
+
+============================== 16:30:49.492816 | 5464c3e5-cd48-4488-93f3-5fc86e605f53 ==============================
+[0m16:30:49.492816 [info ] [MainThread]: Running with dbt=1.13.0-b1
+[0m16:30:49.493816 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'maximum_seed_size_mib': '1', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'version_check': 'True', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\swapn\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'indirect_selection': 'eager', 'hints_enabled': 'True', 'use_colors': 'True', 'use_experimental_parser': 'False', 'invocation_command': 'dbt init zomato', 'log_path': 'logs'}
+[0m16:30:49.494818 [debug] [MainThread]: Tracking: tracking
+[0m16:30:49.564857 [debug] [MainThread]: Starter project path: C:\zomato-ai-data-engineering\.venv\Lib\site-packages\dbt\include\starter_project
+[0m16:30:49.641668 [info ] [MainThread]: Setting up your profile.
+[0m16:32:15.541309 [info ] [MainThread]: Profile zomato written to C:\Users\swapn\.dbt\profiles.yml using target's profile_template.yml and your supplied values.
+[0m16:32:15.553047 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m16:32:15.557051 [info ] [MainThread]: dbt version: 1.13.0-b1
+[0m16:32:15.557051 [info ] [MainThread]: python version: 3.11.9
+[0m16:32:15.558051 [info ] [MainThread]: python path: C:\zomato-ai-data-engineering\.venv\Scripts\python.exe
+[0m16:32:15.559049 [info ] [MainThread]: os info: Windows-10-10.0.26200-SP0
+[0m16:32:15.600534 [info ] [MainThread]: Using profiles dir at C:\Users\swapn\.dbt
+[0m16:32:15.601505 [info ] [MainThread]: Using profiles.yml file at C:\Users\swapn\.dbt\profiles.yml
+[0m16:32:15.602503 [info ] [MainThread]: Using dbt_project.yml file at C:\zomato-ai-data-engineering\zomato\dbt_project.yml
+[0m16:32:15.604747 [info ] [MainThread]: adapter type: postgres
+[0m16:32:15.604747 [info ] [MainThread]: adapter version: 1.11.0
+[0m16:32:15.722153 [info ] [MainThread]: Configuration:
+[0m16:32:15.723395 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m16:32:15.724569 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m16:32:15.725101 [info ] [MainThread]: Required dependencies:
+[0m16:32:15.726159 [debug] [MainThread]: Executing "git --help"
+[0m16:32:15.790871 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           [--config-env=<name>=<envvar>] <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone     Clone a repository into a new directory\n   init      Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add       Add file contents to the index\n   mv        Move or rename a file, a directory, or a symlink\n   restore   Restore working tree files\n   rm        Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect    Use binary search to find the commit that introduced a bug\n   diff      Show changes between commits, commit and working tree, etc\n   grep      Print lines matching a pattern\n   log       Show commit logs\n   show      Show various types of objects\n   status    Show the working tree status\n\ngrow, mark and tweak your common history\n   branch    List, create, or delete branches\n   commit    Record changes to the repository\n   merge     Join two or more development histories together\n   rebase    Reapply commits on top of another base tip\n   reset     Reset current HEAD to the specified state\n   switch    Switch branches\n   tag       Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch     Download objects and refs from another repository\n   pull      Fetch from and integrate with another repository or a local branch\n   push      Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m16:32:15.791873 [debug] [MainThread]: STDERR: "b''"
+[0m16:32:15.792874 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m16:32:15.793875 [info ] [MainThread]: Connection:
+[0m16:32:15.794873 [info ] [MainThread]:   host: localhost
+[0m16:32:15.795872 [info ] [MainThread]:   port: 5433
+[0m16:32:15.795872 [info ] [MainThread]:   user: dbt_user
+[0m16:32:15.796871 [info ] [MainThread]:   database: zomato
+[0m16:32:15.797872 [info ] [MainThread]:   schema: staging
+[0m16:32:15.798873 [info ] [MainThread]:   connect_timeout: 10
+[0m16:32:15.800876 [info ] [MainThread]:   role: None
+[0m16:32:15.801874 [info ] [MainThread]:   search_path: None
+[0m16:32:15.804399 [info ] [MainThread]:   keepalives_idle: 0
+[0m16:32:15.805496 [info ] [MainThread]:   sslmode: None
+[0m16:32:15.806026 [info ] [MainThread]:   sslcert: None
+[0m16:32:15.807627 [info ] [MainThread]:   sslkey: None
+[0m16:32:15.809285 [info ] [MainThread]:   sslrootcert: None
+[0m16:32:15.810356 [info ] [MainThread]:   application_name: dbt
+[0m16:32:15.811425 [info ] [MainThread]:   autocommit: False
+[0m16:32:15.811956 [info ] [MainThread]:   retries: 1
+[0m16:32:15.813004 [info ] [MainThread]: Registered adapter: postgres=1.11.0
+[0m16:32:16.363719 [debug] [MainThread]: Acquiring new postgres connection 'debug'
+[0m16:32:19.125377 [debug] [MainThread]: Using postgres connection "debug"
+[0m16:32:19.126363 [debug] [MainThread]: On debug: select 1 as id
+[0m16:32:19.127363 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m16:32:19.178165 [debug] [MainThread]: SQL status: SELECT 1 in 0.050 seconds
+[0m16:32:19.179167 [debug] [MainThread]: On debug: Close
+[0m16:32:19.180165 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m16:32:19.181172 [info ] [MainThread]: [32mAll checks passed![0m
+[0m16:32:19.182166 [info ] [MainThread]: Your new dbt project "zomato" was created!
+Initialized new project in C:\zomato-ai-data-engineering\zomato\zomato
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m16:32:19.185166 [debug] [MainThread]: Command `dbt init` succeeded at 16:32:19.184166 after 89.86 seconds
+[0m16:32:19.185166 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m16:32:19.186166 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AF68E64610>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AF673127D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002AF68E64250>]}
+[0m16:32:19.188179 [debug] [MainThread]: Flushing usage events
+[0m16:32:20.872379 [debug] [MainThread]: An error was encountered while trying to flush usage events

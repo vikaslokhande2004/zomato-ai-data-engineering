@@ -1,0 +1,109 @@
+# Local Airflow 3.x (LocalExecutor) on Docker.
+x-airflow-common: &airflow-common
+  build: .
+  environment: &airflow-env
+    AIRFLOW__CORE__EXECUTOR: LocalExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:${AIRFLOW_DB_PASSWORD:-change_me_airflow}@airflow-db/airflow
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
+    AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+    AIRFLOW__CORE__FERNET_KEY: '${AIRFLOW_FERNET_KEY:-Z6EVdTGoqIX5kzLaXPPl7mtglw95xE6waVreEXIVHk4=}'
+    AIRFLOW__API_AUTH__JWT_SECRET: '${AIRFLOW_JWT_SECRET:-kadshjf456}'
+    AIRFLOW__API__SECRET_KEY: '${AIRFLOW_API_SECRET_KEY:-asdjfh+456}'
+    AIRFLOW__CORE__EXECUTION_API_SERVER_URL: 'http://apiserver:8080/execution/'
+    
+    # Warehouse + data lake (service names in docker network)
+    PG_HOST: zomato-postgres
+    PG_PORT: '5432'
+    PG_DB: ${PG_DB:-zomato}
+    PG_ADMIN_USER: ${PG_ADMIN_USER:-postgres}
+    PG_ADMIN_PASSWORD: ${PG_ADMIN_PASSWORD:-change_me_admin}
+    LOADER_PASSWORD: ${LOADER_PASSWORD:-change_me_loader}
+    DBT_PASSWORD: ${DBT_PASSWORD:-change_me_dbt}
+    MINIO_ENDPOINT: http://zomato-minio:9000
+    MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+    MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-change_me_123}
+    MINIO_BUCKET: ${MINIO_BUCKET:-zomato-raw}
+    GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+    GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
+    NVIDIA_API_KEY: ${NVIDIA_API_KEY:-}
+    NVIDIA_MODEL: ${NVIDIA_MODEL:-nvidia/nemotron-3.5-lightning-30b-a3b}
+    AI_PROVIDER: ${AI_PROVIDER:-nvidia}
+
+  volumes:
+    - ./dags:/opt/airflow/dags
+    - ./logs:/opt/airflow/logs
+    - ../ingestion:/opt/airflow/ingestion
+    - ../zomato:/opt/airflow/dbt/zomato
+    - ../enrichment:/opt/airflow/enrichment
+    - ../ai:/opt/airflow/ai
+  depends_on:
+    airflow-db:
+      condition: service_healthy
+
+services:
+  airflow-db:
+    image: postgres:16
+    container_name: airflow-db
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD:-change_me_airflow}
+      POSTGRES_DB: airflow
+    volumes:
+      - airflow_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "airflow" ]
+      interval: 5s
+      retries: 5
+
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow-init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db migrate &&
+        (airflow users create \
+          --username "${AIRFLOW_ADMIN_USER:-admin}" \
+          --password "${AIRFLOW_ADMIN_PASSWORD:-admin}" \
+          --firstname a --lastname b --role Admin --email admin@example.com || true)
+    restart: "no"
+    depends_on:
+      airflow-db:
+        condition: service_healthy
+
+  apiserver:
+    <<: *airflow-common
+    container_name: airflow-apiserver
+    command: api-server
+    ports: [ "8080:8080" ]
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  scheduler:
+    <<: *airflow-common
+    container_name: airflow-scheduler
+    command: scheduler
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  dag-processor:
+    <<: *airflow-common
+    container_name: airflow-dag-processor
+    command: dag-processor
+    restart: always
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  airflow_db_data:
+
+networks:
+  default:
+    name: zomato-ai-data-engineering_default
+    external: true

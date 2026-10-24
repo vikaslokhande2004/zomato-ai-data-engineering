@@ -1,0 +1,12 @@
+zomato:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('PG_HOST', 'localhost') }}"
+      user: "dbt_user"
+      password: "{{ env_var('DBT_PASSWORD', 'change_me_dbt') }}"
+      port: "{{ env_var('PG_PORT', '5432') | int }}"
+      dbname: "{{ env_var('PG_DB', 'zomato') }}"
+      schema: "staging"
+      threads: 4
