@@ -280,7 +280,7 @@ The PostgreSQL warehouse enforces strict Role-Based Access Control:
 Clone the repository and create your virtual environment:
 
 ```bash
-git clone https://github.com/your-username/zomato-ai-data-engineering.git
+git clone https://github.com/vikaslokhande2004/zomato-ai-data-engineering.git
 cd zomato-ai-data-engineering
 
 python -m venv .venv
